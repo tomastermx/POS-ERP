@@ -1,0 +1,18 @@
+#main{ height: 100%; }
+
+#maincol{
+              
+    box-shadow: 19px 18px 26px -14px rgba(0,0,0,0.55);
+    -webkit-box-shadow: 19px 18px 26px -14px rgba(0,0,0,0.55);
+    -moz-box-shadow: 19px 18px 26px -14px rgba(0,0,0,0.55);
+    
+    height:450px;
+
+    border:black,solid, 1px;
+
+}
+
+
+  .error {
+    border: solid 2px #FF0000;  
+   } 
