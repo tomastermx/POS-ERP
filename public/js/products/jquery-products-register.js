@@ -90,7 +90,7 @@ $(function () {
 
     $.post('/products/new',product,(data)=>{
        console.log(data);
-       window.location.replace("/products");
+       window.location.replace("/products/index");
      });
 
 

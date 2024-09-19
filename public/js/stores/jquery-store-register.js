@@ -53,7 +53,7 @@
           $.post('/stores/new', store, (data)=>{
             console.log(data);
             
-            window.location.replace("/stores");
+            window.location.replace("/stores/index");
 
           });
           

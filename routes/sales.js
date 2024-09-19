@@ -40,6 +40,9 @@ const products = new ProductService();
     let page  = parseInt(req.query.page) || 1;
     let limit = parseInt(req.query.limit) || 5; 
     
+    
+    console.log(req.query);
+    
     const Allsales = await sales.find(limit,page);
     
     res.json(Allsales);

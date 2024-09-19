@@ -94,7 +94,9 @@
 
                  $("#maintable").append(newRow);
                  
-                 $('.progress-bar').css("width", "100%"); 
+                 ////Progress bar
+                 setTimeout(()=>{ $('.progress-bar').css("width", "100%"); }, 900); 
+                 setTimeout(()=>{ $('.progress-bar').css("width", "3%"); }, 1800); 
 
               });
 

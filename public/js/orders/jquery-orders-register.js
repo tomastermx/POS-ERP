@@ -109,7 +109,7 @@
         
          newColumn.classList.add("col", "gy-4"); 
          
-         newColumn.innerHTML ="<h1>Funciona</h1>";
+         
 
           for(let i= 0; i< inputs.length; i++ ){
             
@@ -148,7 +148,7 @@
         
            $.post("/orders/new", order, (data) =>{
               console.log(data);
-              window.location.replace("/orders/page");
+              window.location.replace("/orders/index");
            });
 
          });

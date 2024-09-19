@@ -1,6 +1,6 @@
 $(function () {
 
-  $('.progress-bar').css("width", "10%"); 
+ // $('.progress-bar').css("width", "10%"); 
 
    //////////////////Show spinner first////////////////////////////////////
 
@@ -51,16 +51,19 @@ $(function () {
   $('#maintable').show();
 
   //////// Get all Sales /////////////////////////////////////////777
-  
-   let urlParams = new URLSearchParams(window.location.search);
-  
-   const page = urlParams.get('page') || 1;
-
    
-   function pourTable(){
+
+    let urlParams = new URLSearchParams(window.location.search);
+  
+    const page = urlParams.get('page') || 1;
+
+    function  pourTable(page, limit, store){
+      
+       $("tbody").empty();
+        
     ///////////////////Empieza funcion ///////////
 
-  $.getJSON('/sales/'+ "?limit=" + 2 + "&page=" +  page  , (data) => {
+      $.getJSON('/sales/'+ "?limit=" + limit + "&page=" +  page + "&store=" + store , (data) => {
     
     const table = document.getElementById("maintable");
     const head = table.getElementsByTagName("th");
@@ -70,10 +73,12 @@ $(function () {
 
       
           ///////////////Pagination//////////////////////////////
-             
+          $("ul.pagination").empty();  
+          
           const lastpage = parseInt(page) - 1 > 1 ? parseInt(page) - 1 : 1;
 
           const nextpage = parseInt(page)  + 1 <= data.pages ? parseInt(page) + 1 : page; 
+
 
             
              $("ul.pagination").append('<li class="page-item"><a class="page-link" href="/sales/index?page=' +  lastpage   +'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
@@ -96,7 +101,7 @@ $(function () {
       return number < 10 ? '0' + number : number.toString();
     }  
 
-    $('.progress-bar').css("width", "100%"); 
+   
     
     $.each(data, (i, value) => {
       console.log(value);
@@ -140,7 +145,7 @@ $(function () {
               // Añadir la celda de "totalAmount"
       const totalAmountCell = document.createElement("td");
        totalAmountCell.innerHTML = value.totalAmount;
-       newRow.innerHTML +='<td>' + value.totalAmount + '</td><td> <button type="button" id="'+ value.id +' " class="btn btn-outline-danger"> Cancelar </button> </td>';
+       newRow.innerHTML +='<td>' + value.totalAmount + '</td><td> <button type="button" id="'+ value.id +' " class=" btn  btn-outline-danger"> Cancelar </button> </td>';
 
         
 
@@ -149,21 +154,23 @@ $(function () {
       $("#maintable tbody").append(newRow);
  
      
-
-          
+             
     
     });
     
     
    
   
-  });
+     });
 
-    }   
-    ///////////////////The end of pourtable function//////////////////7
+   }
    
-    pourTable();
+    ///////////////////The end of pourtable function//////////////////7
 
+    pourTable(page, 3, "Zona");
+  
+     setTimeout(()=>{ $('.progress-bar').css("width", "100%"); }, 900); 
+     setTimeout(()=>{ $('.progress-bar').css("width", "3%"); }, 1800); 
   ///////////////// Csv Modal ///////////////////////////////////////////7
    
      $("#csv").on('click',()=>{
@@ -182,19 +189,32 @@ $(function () {
 
 
 
-    window.location.href = '/sales/get-csv?limit=' + limit;
+     window.location.href = '/sales/get-csv?limit=' + limit;
        
 
-   })
+    })
      
 
    /////////////////////////////////////Filter Data////////////////////////////////////////
 
-       $("#filterBtn").on('click',()=>{
-              
-          $("tbody").empty();
+        $("#filterBtn").on('click',(event)=>{
+            event.preventDefault();
+            
+            pourTable();
               
       });
+
+    
+      
+    ///////////////////////////////////////Cancel Sale////////////////////////////////////////////////7
+    
+      $(document).on('click', '.btn-outline-danger', function() {
+      // Lógica para el botón cancelar
+      alert('Botón Cancelar clicado, ID: ' + $(this).attr('id'));
+
+      $(this).closest('tr').remove();
+    });
+     
            
 
 

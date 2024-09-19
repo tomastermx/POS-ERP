@@ -166,7 +166,7 @@ $(function () {
     $('.progress-bar').css("width", "99%"); 
 
      $.post("/sales/new", sale)
-      .done(()=>{  window.location.replace("/sales/page")})
+      .done(()=>{  window.location.replace("/sales/index")})
       .fail((jqXHR, textStatus, errorThrown)=>{
         
         $("#saleModal").modal("hide"); 
@@ -174,13 +174,14 @@ $(function () {
         $("#saleModal-header").empty()
         $("#modal-body-content").empty();
         $("#salemodal-footer").empty();     
-        /////////////////////Add elements////////////////////////
+        /////////////////////Add elements///////////////////////////////////////////////////////////
         $("#saleModal-header").append('<h5>Error en Operación de compra</5>')
         $("#modal-body-content").append( '<p>Inventario Insuficiente</p>');
         $('#salemodal-footer').append('<button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>')  
         $("#saleModal").modal("show"); 
         
         
+         
       }); 
 
   

@@ -10,7 +10,7 @@ const store = new StoreService();
 
 
 
-     router.get('/page',(req,res,next)=>{
+     router.get('/index',(req,res,next)=>{
       res.sendFile(path.join(__dirname, '../public/html/stores/', 'store.html'));
       
      }); 
