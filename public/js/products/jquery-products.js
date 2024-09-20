@@ -23,6 +23,11 @@
 
             $("tbody").prepend(newRow);
 
+
+            ////////////////////Progress Bar/////////////////////////////////7
+            setTimeout(()=>{ $('.progress-bar').css("width", "100%"); }, 900); 
+            setTimeout(()=>{ $('.progress-bar').css("width", "3%"); }, 1800); 
+
         })
 
     });
@@ -72,7 +77,11 @@
 
 
          if( changes.price || changes.description){
-          $('.progress-bar').css("width", "50%"); 
+           
+          setTimeout(()=>{ $('.progress-bar').css("width", "100%"); }, 900); 
+          setTimeout(()=>{ $('.progress-bar').css("width", "3%"); }, 1800); 
+ 
+
           console.log('buena validación');
           console.log(changes);    
           $("#modal").modal("show");
