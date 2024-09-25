@@ -1,6 +1,6 @@
 $(function () {
 
- // $('.progress-bar').css("width", "10%"); 
+   let cancelId;
 
    //////////////////Show spinner first////////////////////////////////////
 
@@ -55,12 +55,17 @@ $(function () {
 
     let urlParams = new URLSearchParams(window.location.search);
   
-    const page = urlParams.get('page') || 1;
+    const page = urlParams.get('page') ;
 
     function  pourTable(page, limit, store){
       
        $("tbody").empty();
-        
+       
+       page  = page || 1;
+       limit = limit || 3;
+       store =  store || '';
+
+ 
     ///////////////////Empieza funcion ///////////
 
       $.getJSON('/sales/'+ "?limit=" + limit + "&page=" +  page + "&store=" + store , (data) => {
@@ -104,7 +109,7 @@ $(function () {
    
     
     $.each(data, (i, value) => {
-      console.log(value);
+      
       const newRow = document.createElement("tr");
 
       let date = new Date(value.createdAt);
@@ -130,7 +135,7 @@ $(function () {
         productMap[product.id] = product.SaleItems.quantity || 0;
       }
         
-      console.log(productMap);
+      
 
       for (let k = 3; k < head.length - 2; k++) {
         const header = head[k];
@@ -167,10 +172,11 @@ $(function () {
    
     ///////////////////The end of pourtable function//////////////////7
 
-    pourTable(page, 3, "Zona");
+    pourTable(1,3);
   
      setTimeout(()=>{ $('.progress-bar').css("width", "100%"); }, 900); 
      setTimeout(()=>{ $('.progress-bar').css("width", "3%"); }, 1800); 
+
   ///////////////// Csv Modal ///////////////////////////////////////////7
    
      $("#csv").on('click',()=>{
@@ -198,9 +204,17 @@ $(function () {
    /////////////////////////////////////Filter Data////////////////////////////////////////
 
         $("#filterBtn").on('click',(event)=>{
+
             event.preventDefault();
-            
-            pourTable();
+             
+            let store  = $("#select").val();
+              
+           console.log(store); 
+
+            pourTable(page, 3, store);
+
+            setTimeout(()=>{ $('.progress-bar').css("width", "100%"); }, 900); 
+            setTimeout(()=>{ $('.progress-bar').css("width", "3%"); }, 1800); 
               
       });
 
@@ -210,12 +224,35 @@ $(function () {
     
       $(document).on('click', '.btn-outline-danger', function() {
       // Lógica para el botón cancelar
-      alert('Botón Cancelar clicado, ID: ' + $(this).attr('id'));
-
-      $(this).closest('tr').remove();
+     // alert('Botón Cancelar clicado, ID: ' +
+        cancelId = $(this).attr('id');
+          
+      $("#cancelModal").modal("show");
+            
+         
+      //    $(this).closest('tr').remove();
     });
      
+      ///////////////////////////////Confirm Cancelation//////////////////////7
+      
+     $("#cancelBtn").on('click',()=>{
+
+           console.log('funciona boton de cancelación');
+           console.log(cancelId);
            
+           $.ajax({
+            url: '/sales/delete/' + cancelId,
+            type: 'DELETE',
+            success: function(result) {
+              
+              document.getElementById(cancelId).closest('tr').remove();
+            }
+
+        });     
+         
+
+           $("#cancelModal").modal("hide");
+     });  
 
 
 });

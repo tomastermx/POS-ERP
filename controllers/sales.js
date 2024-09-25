@@ -74,18 +74,24 @@ class SalesService {
     return sale;
   }
 
-  async find(limit, page) {
+  async find(limit, page, store ) {
 
-    console.log(page);
-      
-    console.log(limit);    
+
+    
+    
 
     const  offset = (page - 1)  * limit
 
-   
-  
+    const filter = {};
 
-    const sale = await models.Sale.findAll({ 
+
+   if (store) {
+      filter.StoreId = store;
+     }
+     
+     console.log(filter);
+
+    const sale = await models.Sale.findAll({ where:filter, 
       include:  [{
         model: Product,
         through: {
@@ -123,11 +129,25 @@ class SalesService {
 
   async delete(id){
      
-         const sale = await models.Sale.findByPk(id);
-         //const store = await models.Store.findByPk(sale.Store.id);
+         const sale = await this.findOne(id);
          
-         console.log(sale);
-         console.log(store);
+         const  inventory = await models.Inventory.findAll({where:{StoreId:  sale.StoreId}});
+
+         for(const item  of  sale.Products){
+            console.log(item.name);
+         }
+     
+         
+        // await sale.destroy();  
+          
+         
+
+        
+         
+        //sale.destroy();
+       
+       return sale;
+         
 
   } 
   

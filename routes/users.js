@@ -16,9 +16,9 @@ router.get('/dashboard',(req,res,next)=>{
 
 
  /////////////////////////////////All Users ///////////////////////////////////////////
-           router.get('/page',(req,res,next)=>{
+           router.get('/index',(req,res,next)=>{
   
-            res.sendFile(path.join(__dirname, '../public/html/users/', ''));
+            res.sendFile(path.join(__dirname, '../public/html/users/', 'users.html'));
             });
 
     
@@ -26,7 +26,7 @@ router.get('/dashboard',(req,res,next)=>{
 
  //////////////////Login in the App//////////////////////////////////
 
- router.post('/login', passport.authenticate('local', {session:false}),(req,res,next)=>{
+     router.post('/login', passport.authenticate('local', {session:false}),(req,res,next)=>{
 
 
           
@@ -34,7 +34,7 @@ router.get('/dashboard',(req,res,next)=>{
         console.log(req.isAuthenticated());
 
 
- })  ;
+    })  ;
 
 
  ////////////// Create new User/////////////////////////////////

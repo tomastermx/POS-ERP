@@ -35,15 +35,19 @@ const products = new ProductService();
       res.json(oneSale);
   });
 
+
+
   router.get('/', async(req,res,next)=> {
  
     let page  = parseInt(req.query.page) || 1;
-    let limit = parseInt(req.query.limit) || 5; 
+    let limit = parseInt(req.query.limit) || 5;
+    let store  = req.query.store || "" ;  
+      
     
     
-    console.log(req.query);
+
     
-    const Allsales = await sales.find(limit,page);
+    const Allsales = await sales.find(limit,page,store);
     
     res.json(Allsales);
   });
@@ -68,10 +72,21 @@ const products = new ProductService();
 
     
      router.delete('/delete/:id',async(req,res,next)=>{
-           
+              
+                 console.log(req.params.id);
+
+          /*  try{
             const id = req.params.id;
       
             const deletedSale = await sales.delete(id);
+            
+             res.status(201).json(deletedSale);
+             
+            } catch(error){
+              next(error);
+            }
+
+            */
        
      });
     
