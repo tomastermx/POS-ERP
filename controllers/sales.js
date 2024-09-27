@@ -48,7 +48,8 @@ class SalesService {
         const newAmount =  InventoryItem.quantity - dataProduct.qty;
          
          if(newAmount<0){
-          throw boom.badRequest('Stock is empty');;
+          throw boom.badRequest('Stock is empty');
+
          } else {
           InventoryItem.update({quantity:newAmount});
          }
@@ -112,7 +113,12 @@ class SalesService {
 
 
   async findCsv(limit){ 
-    const sale = await models.Sale.findAll({ 
+
+
+     const csvFilter = {};
+     
+
+    const sale = await models.Sale.findAll({ where: csvFilter, 
       include:  [{
         model: Product,
         through: {
@@ -127,26 +133,36 @@ class SalesService {
   }
 
 
+   ///////////////////////////////////////////Delete Sale////////////////////////////////////////////////
   async delete(id){
      
          const sale = await this.findOne(id);
          
          const  inventory = await models.Inventory.findAll({where:{StoreId:  sale.StoreId}});
 
-         for(const item  of  sale.Products){
-            console.log(item.name);
-         }
+               ////////////////////////////////// Upddate Stock//////////////////////////////////
+           for(const saleProduct  of  sale.Products){
+
+            
+            console.log(saleProduct.SaleItems.quantity);
+
+            
+            const InventoryItem = inventory.find(item => item.ProductId === saleProduct.id);
+
+            const newAmount =  InventoryItem.quantity + saleProduct.SaleItems.quantity;
+           
+            InventoryItem.update({quantity:newAmount});
+
+            
+       
+          }
      
          
-        // await sale.destroy();  
-          
+      
          
-
-        
-         
-        //sale.destroy();
+           sale.destroy();
        
-       return sale;
+           return sale;
          
 
   } 

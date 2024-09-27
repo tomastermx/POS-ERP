@@ -73,9 +73,9 @@ const products = new ProductService();
     
      router.delete('/delete/:id',async(req,res,next)=>{
               
-                 console.log(req.params.id);
+                 console.log(req.params.id );
 
-          /*  try{
+           try{
             const id = req.params.id;
       
             const deletedSale = await sales.delete(id);
@@ -83,10 +83,11 @@ const products = new ProductService();
              res.status(201).json(deletedSale);
              
             } catch(error){
+              
               next(error);
             }
 
-            */
+          
        
      });
     

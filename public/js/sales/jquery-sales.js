@@ -1,4 +1,6 @@
 $(function () {
+    
+
 
    let cancelId;
 
@@ -180,9 +182,126 @@ $(function () {
   ///////////////// Csv Modal ///////////////////////////////////////////7
    
      $("#csv").on('click',()=>{
-         
-      $("#csvModal").modal("show");
+      
+      let pickerA ="";
+      let pickerB="";
+    
+      $("#csvModal").modal("show"); 
+      
+      
+        
+       $("#datepickerA").on('click',()=>{   
+      
 
+        if (pickerA) {
+             
+           $(".pika-single").empty();   
+          
+           pickerA = null
+
+         }  else {
+
+          
+           
+          var fieldA = document.getElementById('datepickerA');
+           pickerA = new Pikaday({
+            i18n: {
+              previousMonth: 'Mes anterior',
+              nextMonth: 'Mes siguiente',
+              months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+              weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+              weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
+            },
+            format: 'YYYY-MM-DD',   
+             
+
+              onSelect: function(date) { fieldA.value = pickerA.toString();
+              }
+
+          });
+          fieldA.parentNode.insertBefore(pickerA.el, fieldA.nextSibling);
+ 
+                 
+                     } 
+
+                            // Cerrar el calendario al hacer clic fuera
+           $(document).on('click', (e) => {
+            if (!$(e.target).closest('.pika-single, #datepickerA').length) {
+               pickerA.hide();
+          }
+      });
+
+
+        }); 
+
+          ////////////////////////////////////////Calendar 2  ////////////////////////////////////////7 
+
+        $("#datepickerB").on('click',()=>{   
+      
+
+          if (pickerB) {
+               
+             $(".pika-single").empty();   
+            
+             pickerB = null
+  
+           }  else {
+  
+            console.log(pickerB);
+             
+            var fieldB = document.getElementById('datepickerB');
+             pickerB = new Pikaday({
+              i18n: {
+                previousMonth: 'Mes anterior',
+                nextMonth: 'Mes siguiente',
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
+              },
+              format: 'YYYY-MM-DD',   
+               
+  
+                onSelect: function(date) { fieldB.value = pickerB.toString();
+                }
+  
+            });
+            fieldB.parentNode.insertBefore(pickerB.el, fieldB.nextSibling);
+   
+                   
+          } 
+  
+                
+            $(document).on('click', (e) => {
+             if (!$(e.target).closest('.pika-single, #datepickerB').length) {
+              pickerB.hide();
+          }
+      }); 
+
+
+
+
+
+
+
+
+
+
+
+          }); 
+  
+
+
+
+
+
+
+
+
+
+        
+      
+     
+       
      });
 
 
@@ -191,8 +310,13 @@ $(function () {
    $("#csvBtn").on('click',()=>{
      
     let  limit = $("#limit").val();
-
-
+   
+    let startDate = $("#datepickerA").val();
+    
+    let endDate  =$("#datepickerB").val();
+     
+    console.log(startDate);
+    console.log(endDate);
 
 
      window.location.href = '/sales/get-csv?limit=' + limit;
@@ -244,9 +368,21 @@ $(function () {
             url: '/sales/delete/' + cancelId,
             type: 'DELETE',
             success: function(result) {
+             
+              console.log(result);
               
-              document.getElementById(cancelId).closest('tr').remove();
-            }
+             document.getElementById(cancelId).closest('tr').remove(); 
+
+
+            },
+
+            error: function(xhr, status, error) {
+              // Esta función se ejecuta si hubo un error en la solicitud
+              console.error('Error al eliminar el registro:', error);
+              alert('Hubo un error al eliminar el registro. Inténtalo nuevamente.');
+          }
+
+
 
         });     
          
