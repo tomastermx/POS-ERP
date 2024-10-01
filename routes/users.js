@@ -15,6 +15,16 @@ router.get('/dashboard',(req,res,next)=>{
 });
 
 
+/////////////////////Create all Users ///////////////////////////////////////////////////
+
+       router.get('/add',(req,res,next)=>{
+           
+        res.sendFile(path.join(__dirname, '../public/html/users/', 'register.html'));
+
+     });
+ 
+
+
  /////////////////////////////////All Users ///////////////////////////////////////////
            router.get('/index',(req,res,next)=>{
   

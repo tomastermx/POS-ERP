@@ -1,6 +1,6 @@
 $(function () {
     
-
+  
 
    let cancelId;
 
@@ -105,22 +105,29 @@ $(function () {
                
           
     function pad(number) {
+
       return number < 10 ? '0' + number : number.toString();
     }  
 
    
     
     $.each(data, (i, value) => {
-      
+         
+
+ 
       const newRow = document.createElement("tr");
 
       let date = new Date(value.createdAt);
-     
+    
+       
+       console.log(date);
+       console.log(date.getDate());
+
       newRow.innerHTML =
         "<td>" +
        pad(date.getDate()) +
         "-" +
-       pad (date.getMonth()) +
+       pad ( parseInt(date.getMonth()) + 1  ) +
         "-" +
         date.getFullYear() +
         "-" +
@@ -182,9 +189,12 @@ $(function () {
   ///////////////// Csv Modal ///////////////////////////////////////////7
    
      $("#csv").on('click',()=>{
-      
+    
+   
       let pickerA ="";
       let pickerB="";
+
+
     
       $("#csvModal").modal("show"); 
       
@@ -319,7 +329,7 @@ $(function () {
     console.log(endDate);
 
 
-     window.location.href = '/sales/get-csv?limit=' + limit;
+     window.location.href = '/sales/get-csv?limit=' + limit + '&startDate=' +startDate + '&endDate=' + endDate  ;
        
 
     })

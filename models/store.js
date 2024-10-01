@@ -4,6 +4,8 @@ const ShortUniqueId = require('short-unique-id');
 
 const { PRODUCTS_TABLE } = require("./product");
 const { SALES_TABLE } = require("./sales");
+const { USER_TABLE } = require("./users");
+
 
 const STORE_TABLE = "store";
 
@@ -44,7 +46,7 @@ class Store extends Model {
     this.belongsToMany(models.Product, { through: 'Inventory'}, {foreignKey:'StoreId'});
     this.hasMany(models.Sale ,{ onDelete: 'NULL',  onUpdate: 'CASCADE' });
     this.hasMany(models.Order,{onDelete:null,onUpdate:'CASCADE'});
-  
+     this.hasMany(models.User,{onDelete:null,onUpdate:'CASCADE'});  
   }
    
 

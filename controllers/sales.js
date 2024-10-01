@@ -1,22 +1,33 @@
-const { models } = require("../lib/sequelize");
+
+const { Op } = require('sequelize');
+const { models, sequelize } = require("../lib/sequelize");
 const { Product } = require("../models/product");
 const { Store } = require('../models/store');
 const { SaleItems } = require("../models/saleitems");
 const boom = require('@hapi/boom');
+const moment = require('moment-timezone');
 
 class SalesService {
   constructor() {}
 
+   ///Create  Sale
   async create(data) {
-    console.log(data);
-    console.log(data.store);
-    console.log(data.seller);
-    console.log(data.saletype);
+ 
+    const transaction = await sequelize.transaction();
+    
+    try{
+     console.log(data);
+     console.log(data.store);
+     console.log(data.seller);
+     console.log(data.saletype);
+        
+    
+  
 
       let totalSale = 0;
   
-     const newSale = await models.Sale.create({ totalAmount: 0 });
-     const store = await models.Store.findByPk(data.store);
+     const newSale = await models.Sale.create({ totalAmount: 0 }, {transaction});
+     const store = await models.Store.findByPk(data.store, {transaction});
      
      const  inventory = await models.Inventory.findAll({where:{StoreId:store.id}});
      
@@ -27,7 +38,7 @@ class SalesService {
 
       
 
-      const product = await models.Product.findByPk(dataProduct.id);
+      const product = await models.Product.findByPk(dataProduct.id, {transaction} );
       
       
       
@@ -37,7 +48,7 @@ class SalesService {
         ProductId: product.id,
         quantity: dataProduct.qty,
         price: product.price,
-      });
+      },{transaction});
 
       totalSale += product.price * dataProduct.qty;
 
@@ -51,23 +62,31 @@ class SalesService {
           throw boom.badRequest('Stock is empty');
 
          } else {
-          InventoryItem.update({quantity:newAmount});
+          InventoryItem.update({quantity:newAmount},{transaction});
          }
         
       
 
     }
     
-    newSale.update({seller:data.seller});
-    newSale.update({typeofsale:data.saletype});
-    newSale.update({ totalAmount: totalSale });
-    newSale.update({StoreId:store.id});
+    await newSale.update({seller:data.seller} ,{transaction} );
+    await newSale.update({typeofsale:data.saletype} , {transaction} );
+    await newSale.update({ totalAmount: totalSale } ,{transaction}  );
+    await newSale.update({StoreId:store.id}, {transaction} );
       
     
+    await transaction.commit();
+
     
-    
-    return newSale;   
-     
+    return newSale;  
+
+     }  catch(error){
+      await transaction.rollback();
+      throw error; 
+      
+     } 
+
+
   }
 
   async findOne(id) {
@@ -112,13 +131,30 @@ class SalesService {
   }
 
 
-  async findCsv(limit){ 
-
+  async findCsv(limit, startDate , endDate){ 
+    
+     
+     
 
      const csvFilter = {};
      
+     if (startDate && endDate) {
 
-    const sale = await models.Sale.findAll({ where: csvFilter, 
+      const startDateUTC = moment.tz(startDate, 'America/Mexico_City').startOf('day').utc().format();
+      const endDateUTC = moment.tz(endDate, 'America/Mexico_City').endOf('day').utc().format();
+
+
+       csvFilter.createdAt = {
+        [Op.between]: [ startDateUTC,endDateUTC]
+      };
+    
+    }
+
+
+
+
+
+    const sale = await models.Sale.findAll({ where: csvFilter,   
       include:  [{
         model: Product,
         through: {

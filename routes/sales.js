@@ -10,6 +10,7 @@ const sales = new SalesService();
 
 
 const ProductService = require('../controllers/products');
+const { start } = require('repl');
   
 const products = new ProductService();
 
@@ -98,10 +99,15 @@ const products = new ProductService();
 
      let  limit =  parseInt(req.query.limit) || 5;
      
-     
+     let startDate = req.query.startDate || "";
 
-    const csvSales =    await sales.findCsv(limit);
-   
+     let endDate  = req.query.endDate  || "";
+
+    
+           
+
+    const csvSales =    await sales.findCsv(limit, startDate,endDate);
+    
     
     
     const allproducts  = await  products.find(); 

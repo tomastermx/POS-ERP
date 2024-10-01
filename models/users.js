@@ -31,7 +31,16 @@ const uid = new ShortUniqueId({ length: 10 });
 
        },
 
-        lastname:{
+
+       firstname:{
+        allowNull:true,
+        type: DataTypes.STRING,
+        field: "firstname" 
+       },
+
+
+
+         lastname:{
          allowNull:true,
          type: DataTypes.STRING,
          field: "lastname" 
