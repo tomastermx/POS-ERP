@@ -9,7 +9,108 @@
     <script src='/js/users/jquery-user.js'></script>
   </head>
   <body>
-    <h1> Todos los usuarios</h1>
+          
+      <!--NavBar-->
+        
+    <nav class="navbar  navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/users/dashboard">Home</a>
+            </li>
+
+          <!--Ventas-->     
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
+                
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/sales/index">Ventas</a></li>
+                <li><a class="dropdown-item" href="/sales/add">Nueva Venta</a></li>
+              </ul>
+            </li>
+
+
+
+            
+            <!--Orders-->
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Compras</a>
+                
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/orders/index">Ordenes de Compra </a></li>
+                <li><a class="dropdown-item" href="/orders/add">Agregar Orden</a></li>
+              </ul>
+            </li>   
+            
+           
+             <!--Products-->
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
+                
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/products/index">Productos</a></li>
+                <li><a class="dropdown-item" href="/products/add">Agregar Productos</a></li>
+              </ul>
+            </li>   
+            
+            <!--Stores-->
+             
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sucursales</a>
+                
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/stores/index">Sucursales</a></li>
+                <li><a class="dropdown-item" href="/stores/add">Agregar Sucursales</a></li>
+              </ul>
+            </li>   
+                                            
+
+
+        </div>
+      </div>
+    </nav> 
+
+       <!---->
+
+        <!--Maincontent-->   
+      <div class="container-fluid">
+            <div class="row text-center m-3">
+         <h1> Todos los usuarios</h1>
+           </div>
+
+           <div class="table-responsive">
+            <table  id="maintable" class="table table-striped">
+            
+           
+     
+             <thead class="table-dark">
+               <tr>
+                 <th scope="col"> Correo </th>
+                 <th scope="col"> Nombre </th>
+                 <th scope="col">  Apellido </th>
+                 <th scope="col">  Rol </th>
+                 <th scope="col">  Tienda </th>
+               </tr>
+             </thead>
+             <tbody>
+   
+             </tbody>
+           </table>
+         </div>  
+
+
+     </div>
+                
+ 
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

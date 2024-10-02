@@ -83,9 +83,13 @@
     </nav> 
 
      <!--NavBar-END-->
-         
+              
+          
+     
+
+
        
-    
+          
 
       <div class="cotainer">
        
@@ -93,7 +97,7 @@
           <div class="progress-bar progress-bar-striped" style="width: 5%"></div>
         </div>
     
-
+         
 
 
          <div class="row text-center m-3">
@@ -101,6 +105,32 @@
          </div>    
 
          <div class="container-fluid">
+
+          <form id="mainform" class="form-control form-control"> 
+            <div class="row g-3">
+                     
+             <div  class="col-sm">
+               <select id="select"  class="form-select" aria-label="Default select example">
+                
+                 <option selected value=""></option>
+          
+              </select>
+            </div>
+     
+     
+             <div class="col-sm d-grid gap-2 " >
+               <button  type="submit"  id ="filterBtn" class="btn btn-outline-primary">Buscar</button>
+             </div> 
+     
+             <div class="col-sm d-grid gap-2 " >
+               <button  type="button"  id ="csv" class="btn btn-outline-primary">Descargar CSV</button>
+             </div> 
+     
+             </div>
+           </form>     
+           
+             <!--Table-->
+
           <div class="table-responsive">
        <div class="table-responsive">  
           <table  id="maintable" class="table table-striped able-striped">
