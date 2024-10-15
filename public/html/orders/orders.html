@@ -123,7 +123,7 @@
              </div> 
      
              <div class="col-sm d-grid gap-2 " >
-               <button  type="button"  id ="csv" class="btn btn-outline-primary">Descargar CSV</button>
+               <button  type="button"  id ="csvBtn" class="btn btn-outline-primary">Descargar CSV</button>
              </div> 
      
              </div>
@@ -160,10 +160,38 @@
               </ul>
             </nav>
 
-
-
         </div>
-  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                          
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <!--MODAL CSV--> 
+
+        <div id="csvModal" class="modal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Exportar CSV</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Descargar Ordenes de Compra</p>
+                   
+                <select id="cvsoption" class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+
+              </div>
+              <div class="modal-footer">
+                <button id="csvConfirm" type="button" class="btn btn-success">Descargar Csv</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+     
+
   </body>
 </html>

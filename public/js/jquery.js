@@ -5,20 +5,21 @@ $(function(){
       let email  = $("#email").val();
       let psswd  = $("#password").val();
 
-      console.log(email);
-      console.log(psswd);
+      
 
       const user = {
            "email": email,
             "password": psswd
       }
-       console.log(user);
+       
 
-      $.post('/users/login',user, (data)=>{
-           
-      })
+      $.post('/users/login',user)
+      .done(()=> { 
+                 alert('Datos correctos')
+         window.location.replace("/users/dashboard") 
 
-     // window.location.replace("/users/dashboard");
+       })
+      .fail(()=>{ alert('datos invalidos') })
    });
 
 

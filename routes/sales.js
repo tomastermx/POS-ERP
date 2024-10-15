@@ -10,6 +10,7 @@ const sales = new SalesService();
 
 
 const ProductService = require('../controllers/products');
+
 const { start } = require('repl');
   
 const products = new ProductService();
@@ -40,17 +41,19 @@ const products = new ProductService();
 
   router.get('/', async(req,res,next)=> {
  
-    let page  = parseInt(req.query.page) || 1;
-    let limit = parseInt(req.query.limit) || 5;
+    let page  = parseInt(req.query.page)  || 1;
+    let limit = parseInt(req.query.limit) || 3;
     let store  = req.query.store || "" ;  
       
-    
-    
+    console.log(page);
+    console.log(limit);
+    console.log(store);
 
     
     const Allsales = await sales.find(limit,page,store);
     
     res.json(Allsales);
+
   });
 
 

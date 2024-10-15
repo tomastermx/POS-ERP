@@ -45,8 +45,8 @@ class Store extends Model {
   static associate(models) {
     this.belongsToMany(models.Product, { through: 'Inventory'}, {foreignKey:'StoreId'});
     this.hasMany(models.Sale ,{ onDelete: 'NULL',  onUpdate: 'CASCADE' });
-    this.hasMany(models.Order,{onDelete:null,onUpdate:'CASCADE'});
-     this.hasMany(models.User,{onDelete:null,onUpdate:'CASCADE'});  
+    this.hasMany(models.Order,{onDelete:null, onUpdate:'CASCADE'});
+     this.hasMany(models.User, {onDelete:'SET NULL', onUpdate:'CASCADE', foreignKey: 'StoreId'});  
   }
    
 

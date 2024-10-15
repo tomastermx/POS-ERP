@@ -23,7 +23,7 @@ const { Product } = require('../models/product');
                await models.Inventory.create({
                   StoreId:  store.id,
                   ProductId: product.id,
-                  quantity:0  
+                  quantity:  0  
                   })
 
           }

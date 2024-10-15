@@ -57,13 +57,14 @@ $(function () {
 
     let urlParams = new URLSearchParams(window.location.search);
   
-    const page = urlParams.get('page') ;
+    const pointer = urlParams.get('page') ;
 
     function  pourTable(page, limit, store){
       
        $("tbody").empty();
        
-       page  = page || 1;
+       
+       page  = pointer || 1;
        limit = limit || 3;
        store =  store || '';
 
@@ -120,8 +121,8 @@ $(function () {
       let date = new Date(value.createdAt);
     
        
-       console.log(date);
-       console.log(date.getDate());
+       
+       
 
       newRow.innerHTML =
         "<td>" +

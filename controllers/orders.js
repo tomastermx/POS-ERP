@@ -35,7 +35,7 @@ class OrderService{
 
              const InventoryItem = inventory.find(item=> item.ProductId === dataProduct.id);
 
-             const newInvAmount =  InventoryItem.quantity + dataProduct.qty;
+             const newInvAmount =  +InventoryItem.quantity +  +dataProduct.qty;
                
              InventoryItem.update({quantity:newInvAmount});
 
@@ -63,14 +63,22 @@ class OrderService{
 
          const pages =  Math.ceil(countSales/limit);
 
-         console.log(pages);
+         
 
          return {...Orders,...{pages:pages}}; 
           
 
      }
 
+      
+      /* Get Orders for Csv */ 
+       async csvOrders(){
 
+        const Orders =   await models.Order.findAll({
+          include:[{ model:Product,through:{attributes:["quantity"]}, attributes:["id","name"] }, {model:Store}  ] , order: [['create_at', 'DESC']]
+       });                    
+              return Orders; 
+      }  
 
 
      async delete(){

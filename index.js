@@ -1,15 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const  cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-const  app = express();
 const passport = require('passport');
 const sequelizeDB = require('./lib/sequelize');
 
-const {boomErrorHandler} = require('./middleware/errorhandler');
+const  app = express();
 
+const {boomErrorHandler} = require('./middleware/errorhandler');
+   
+  require('dotenv').config();
+  
+  
   require('./auth/index');
+  require('./auth/passport');
 
   app.use(logger('dev'));
 
@@ -18,21 +23,20 @@ app.use(bodyParser.urlencoded({}));
 app.use(cookieParser());
 
 app.use(session({
-    secret: 'H9U5eMWzYt8g3hjlISyB',
+    secret: process.env.SESSION_KEY,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    saveUninitialized: false,
+    cookie: { secure: false }
   }));
 
 
-  require('./auth/passport')(passport);
 
   app.use(passport.initialize());
   app.use(passport.session());
 
   
 
-app.use(express.static('public'));
+
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
@@ -48,7 +52,13 @@ app.use('/products',productsRouter);
 app.use('/stores', StoreRouter);
 app.use('/orders',OrdersRouter );
 
+
+app.use(express.static('public'));
+
+
 //////Handling errors
+
+
 
 app.use(boomErrorHandler);
 

@@ -1,8 +1,13 @@
-
+ 
 
 $(function(){
+      
+         
 
-    alert('Funciona users');
- 
+    var store = localStorage.getItem("StoreId");
+     
+    console.log(store);
+
+
  
  });

@@ -19,18 +19,19 @@ const LocalStrategy = new Strategy({
            
             const user  = await  User.findByEmail(email);
             if(!user){
-              done(boom.unauthorized(),false);
+              return   done(boom.unauthorized(),false);
             }
             
 
             const isMatch = await bcrypt.compare(password, user.password);
              if(!isMatch){
-               done(boom.unauthorized(),false);
+              return done(boom.unauthorized(),false);
              }
               
-              done(null,user);
+             return done(null,user);
 
               }catch(error){
+                
              done(error,false);
          }
 

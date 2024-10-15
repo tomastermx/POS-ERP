@@ -6,6 +6,7 @@ const path = require('path');
 
 const StoreService = require('../controllers/stores');
 
+
 const store = new StoreService();
 
 
@@ -40,7 +41,7 @@ const store = new StoreService();
   
 
       
-      router.get('/', async(req,res,next)=>{
+      router.get('/',  async(req,res,next)=>{
           
         const stores = await store.Allstores();    
 

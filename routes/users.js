@@ -7,9 +7,13 @@ const passport = require('passport');
 
 const userService = require('../controllers/users');
 
+const {checkAuthWeb, checkApi,checkAdminWeb} = require('../middleware/auth');
+
 const user = new userService();
 
-router.get('/dashboard',(req,res,next)=>{
+///////////////////////////////////Dashboard////////////////////////////////////
+
+router.get('/dashboard',checkAuthWeb ,  (req,res,next)=>{
   
     res.sendFile(path.join(__dirname, '../public/html/users/', 'user-main.html'));
 });
@@ -17,16 +21,27 @@ router.get('/dashboard',(req,res,next)=>{
 
 /////////////////////Create all Users ///////////////////////////////////////////////////
 
-       router.get('/add',(req,res,next)=>{
+       router.get('/add',checkAuthWeb,checkAdminWeb,(req,res,next)=>{
            
         res.sendFile(path.join(__dirname, '../public/html/users/', 'register.html'));
 
      });
  
+ /////////////////////// Get User Data //////////////////////////////////////////////
+  
+   router.get('/user-data', checkApi, (req,res,next)=>{
+              
+          const user =  req.session.user;
+        
+          
+          res.json(user);
+     
+   });
+
 
 
  /////////////////////////////////All Users ///////////////////////////////////////////
-           router.get('/index',(req,res,next)=>{
+           router.get('/index',checkAuthWeb, checkAdminWeb ,(req,res,next)=>{
   
             res.sendFile(path.join(__dirname, '../public/html/users/', 'users.html'));
             });
@@ -34,32 +49,48 @@ router.get('/dashboard',(req,res,next)=>{
     
 
 
- //////////////////Login in the App//////////////////////////////////
+   //////////////////Login in the App//////////////////////////////////
 
-     router.post('/login', passport.authenticate('local', {session:false}),(req,res,next)=>{
+     router.post('/login', passport.authenticate('local',{ failureRedirect: '/d' }),(req,res,next)=>{
 
 
+          console.log('authentication-success');
           
-        console.log(req.user);  
-        console.log(req.isAuthenticated());
+              const { firstname , email , role, StoreId } = req.user;
+                      
+              req.session.user = {firstname,email, role }
+
+              if(StoreId){
+                req.session.user.storeid = StoreId;
+              }
 
 
-    })  ;
+              console.log(req.session);
+           
+           res.json({ success: true });
+            
+              
+        
 
+       });
 
- ////////////// Create new User/////////////////////////////////
+    
 
-     router.post('/new', async(req,res,next)=>{ 
+    ////////////// Create new User/////////////////////////////////
+
+     router.post('/new' , checkAuthWeb, async(req,res,next)=>{ 
         
          const data = req.body
-         
+          
+         console.log(data);
+           
          const newUser =  await user.create(data);
          res.json(newUser) 
       });
 
 ////////////////Find all users //////////////////////////////////////////////////////////
 
- router.get('/all', async(req,res,next)=>{
+ router.get('/', async(req,res,next)=>{
  
       const  allUsers = await user.find();
 

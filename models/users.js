@@ -52,14 +52,20 @@ const uid = new ShortUniqueId({ length: 10 });
         allowNull: false,
         type: DataTypes.STRING,
         field: "role", 
-       }
+       },
+        
+
+         StoreId: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
 
  }
 
       class User extends Model {
          
       static associate(models){
-        this.belongsTo(models.Store)
+        this.belongsTo(models.Store , { onDelete:'SET NULL', onUpdate:'CASCADE',  foreignKey:'StoreId', allowNull:true})
 
       }
       

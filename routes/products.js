@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+const {checkAuth,checkAdmin} = require('../middleware/auth');
 const ProductService = require('../controllers/products');
   
 const product = new ProductService();

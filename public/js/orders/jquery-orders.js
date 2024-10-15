@@ -103,4 +103,25 @@
 
       });
 
+      /////////////////  Get CSV///////////////////////////////////
+
+       $("#csvBtn").on('click',()=>{
+         
+          $("#csvModal").modal('show');
+
+       });
+
+      /////////////////////////////////Confirm Csv//////////////
+               
+        $("#csvConfirm").on('click',()=>{
+           
+          let limit  = $("#csvoption").val();
+
+           console.log(limit);
+
+          window.location.href ='/orders/get-csv'  + '?limit=' + limit
+
+        });
+       
+       
   });

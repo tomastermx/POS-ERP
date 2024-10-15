@@ -1,6 +1,9 @@
 $(function () {
-  console.log("funcionando");
 
+  let storeId = localStorage.getItem("storeId");  
+   
+  console.log(storeId);
+   
   let sale;
 
   /// Get all stores ///////////////////////////////////

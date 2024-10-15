@@ -56,7 +56,7 @@ class SalesService {
         console.log(InventoryItem.ProductId);
         console.log(InventoryItem.quantity); 
      
-        const newAmount =  InventoryItem.quantity - dataProduct.qty;
+        const newAmount =  +InventoryItem.quantity - +dataProduct.qty;
          
          if(newAmount<0){
           throw boom.badRequest('Stock is empty');
@@ -124,7 +124,7 @@ class SalesService {
     
    
     const  countSales = await models.Sale.count({});
-    console.log(countSales + 'es aqui'); 
+    console.log(countSales);
     const pages =  Math.ceil(countSales/limit);
 
     return {...sale,...{pages:pages}};
