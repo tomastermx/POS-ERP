@@ -69,7 +69,8 @@
 
                  let date = new Date(value.createdAt);
 
-                 newRow.innerHTML = '<td>' + pad(date.getDate()) + "-" + pad(date.getMonth()) + "-" + date.getFullYear() +  "-" + pad(date.getHours()) + ":" + pad(date.getMinutes()) + '</td><td>'+ value.Store.name +  '</td>'
+                 newRow.innerHTML += '<td>'+ value.id + '</td>'
+                 newRow.innerHTML += '<td>' + pad(date.getDate()) + "-" + pad(date.getMonth()) + "-" + date.getFullYear() +  "-" + pad(date.getHours()) + ":" + pad(date.getMinutes()) + '</td><td>'+ value.Store.name +  '</td>'
                   
 
                  const productMap = {};
@@ -80,7 +81,7 @@
                    
           
                 
-                 for (let k = 2; k < head.length ; k++) {
+                 for (let k = 3; k < head.length ; k++) {
     
                   const header = head[k];
                   const rowData = document.createElement("td");
@@ -120,6 +121,8 @@
            console.log(limit);
 
           window.location.href ='/orders/get-csv'  + '?limit=' + limit
+
+          $("#csvModal").modal('hide');
 
         });
        

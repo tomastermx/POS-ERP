@@ -48,6 +48,12 @@ const products = new ProductService();
          
          let limit = parseInt(req.query.limit) || 50 ;
 
+         const options = { year: 'numeric', month: '2-digit', day: '2-digit', 
+          hour: '2-digit', minute: '2-digit', second: '2-digit', 
+          hour12: true, timeZone: 'America/Mexico_City' };    
+               
+
+
          console.log(limit);
        
          const Orders =  await order.csvOrders(); 
@@ -93,7 +99,7 @@ const products = new ProductService();
              }) 
             
         
-             return { id: orders.id, Date: orders.createdAt, Store: orders.Store.name, 
+             return { id: orders.id, Date: new Date(orders.createdAt).toLocaleString('es-MX', options) , Store: orders.Store.name, 
               ...orderQuantities
              }
 

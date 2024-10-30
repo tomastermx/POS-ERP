@@ -106,7 +106,9 @@ const products = new ProductService();
 
      let endDate  = req.query.endDate  || "";
 
-    
+     const options = { year: 'numeric', month: '2-digit', day: '2-digit', 
+      hour: '2-digit', minute: '2-digit', second: '2-digit', 
+      hour12: true, timeZone: 'America/Mexico_City' };    
            
 
     const csvSales =    await sales.findCsv(limit, startDate,endDate);
@@ -124,6 +126,7 @@ const products = new ProductService();
   console.log(arrayProducts);
   
     const fields = [
+        { label: 'ID',  value:'Id' },
         { label: 'Date', value: 'Date' },
         { label:'Store', value:'Store'},
         { label:'SaleType', value:'Type'},
@@ -160,7 +163,8 @@ const products = new ProductService();
 
                });
               
-             return { Date:sales.createdAt,
+             return {Id:sales.id, 
+                     Date: new Date (sales.createdAt).toLocaleString('es-MX', options),
                      Store: sales.Store.name,
                      Type: sales.typeofsale,
                      ...saleQuantities,

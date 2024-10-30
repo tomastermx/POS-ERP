@@ -1,4 +1,5 @@
 const { models } = require("../lib/sequelize");
+const { Store } = require('../models/store');
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 
@@ -33,7 +34,7 @@ class userService {
    }
 
     async find(){
-    const user = await models.User.findAll();
+    const user = await models.User.findAll({include:[{model:Store}]});
     return user;
    }
     
@@ -41,7 +42,32 @@ class userService {
         const user = await  models.User.destroy();
     }
     
-    async update(){
+    async update(id, updates){
+          
+         const user = await this.findOne(id);
+
+       if(updates.password){
+         console.log('password' + updates.password );
+         
+         const salt =  await bcrypt.genSalt(8);
+         const securepass = await bcrypt.hash(password,salt);
+
+         console.log(securepass);
+         
+         updates.passpord  =securepass;
+                
+
+       }
+
+     
+       
+       
+       user.update(updates);
+
+       console.log(user);
+
+       return user;
+
 
     }
 

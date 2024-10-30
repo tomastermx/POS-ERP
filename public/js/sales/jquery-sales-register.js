@@ -2,20 +2,21 @@ $(function () {
 
   let storeId = localStorage.getItem("storeId");  
    
-  console.log(storeId);
+  
    
   let sale;
 
-  /// Get all stores ///////////////////////////////////
+  /// Get  stores ///////////////////////////////////
 
-  $.getJSON("/stores", (data) => {
+  $.getJSON("/stores/" + storeId , (data) => {
     console.log(data);
-    $.each(data, (i, value) => {
-      const option =
-        '<option value="' + value.id + '">' + value.name + "</option>";
+  
+    
+    
+      const option ='<option value="' + data.id + '">' + data.name + "</option>";
 
-      $("#selection").prepend(option);
-    });
+      $("#selection").append(option);
+  
   });
 
   ///// get all products ///////////////////////////////

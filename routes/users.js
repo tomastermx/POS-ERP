@@ -41,7 +41,7 @@ router.get('/dashboard',checkAuthWeb ,  (req,res,next)=>{
 
 
  /////////////////////////////////All Users ///////////////////////////////////////////
-           router.get('/index',checkAuthWeb, checkAdminWeb ,(req,res,next)=>{
+           router.get('/index',(req,res,next)=>{
   
             res.sendFile(path.join(__dirname, '../public/html/users/', 'users.html'));
             });
@@ -69,12 +69,31 @@ router.get('/dashboard',checkAuthWeb ,  (req,res,next)=>{
            
            res.json({ success: true });
             
-              
+                  
         
 
        });
 
+
+   ////////////////////////////LogOut/////////////////////////////////////////////////////////
+   
+      router.get('/logout',(req,res,next)=>{
+         
+         req.session.destroy(()=>{console.log('session destroyed')});
+         res.redirect("/");
+         console.log('session-closed');
+         console.log(req.session); 
+      });
     
+   ////////////////////////////Unauthorized User Page////////////////////////
+
+      router.get('/user-unauthorized',(req,res,next)=>{ 
+          
+         res.sendFile(path.join(__dirname, '../public/html/users/', 'unauthorized.html'));
+
+      });
+
+
 
     ////////////// Create new User/////////////////////////////////
 
@@ -94,16 +113,31 @@ router.get('/dashboard',checkAuthWeb ,  (req,res,next)=>{
  
       const  allUsers = await user.find();
 
-      res.json(allUsers);
+      res.status(200).json(allUsers);
   
   });
 
 
- ////////////////////////////////////////// Find User  /////////////////////////////////
+  ////////////////////////////////////////// Find User  /////////////////////////////////
    
    router.get('/:id', async(req,res,next)=>{
       console.log(req.params);
    });
+
+
+   ///////////////////Modify User Data////////////////////////////////////////////////////
+   
+     router.post('/update', async(req,res,next)=>{
+                
+        const {id, updates} = req.body;
+
+        const updateUser = await user.update(id, updates);
+        
+        res.status(200).json(updateUser);
+
+     });
+
+
 
 
 module.exports = router;

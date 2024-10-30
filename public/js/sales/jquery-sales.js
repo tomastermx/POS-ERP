@@ -3,7 +3,9 @@ $(function () {
   
 
    let cancelId;
-
+   
+   let pointer;
+    
    //////////////////Show spinner first////////////////////////////////////
 
     let spinning = '<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border" style="width: 7rem; height: 7rem;"  role="status"><span class="visually-hidden">Loading...</span></div> </div>'
@@ -57,7 +59,7 @@ $(function () {
 
     let urlParams = new URLSearchParams(window.location.search);
   
-    const pointer = urlParams.get('page') ;
+     pointer = urlParams.get('page') ;
 
     function  pourTable(page, limit, store){
       
@@ -114,17 +116,18 @@ $(function () {
     
     $.each(data, (i, value) => {
          
-
+      if(value.Store && value.Products){
  
       const newRow = document.createElement("tr");
 
       let date = new Date(value.createdAt);
     
-       
-       
-       
+      
+                  
 
       newRow.innerHTML =
+       
+        "<td>" + value.id  + "</td>"+ 
         "<td>" +
        pad(date.getDate()) +
         "-" +
@@ -147,7 +150,7 @@ $(function () {
         
       
 
-      for (let k = 3; k < head.length - 2; k++) {
+      for (let k = 4; k < head.length - 2; k++) {
         const header = head[k];
         const rowData = document.createElement("td");
         rowData.innerHTML =
@@ -168,7 +171,7 @@ $(function () {
  
       $("#maintable tbody").append(newRow);
  
-     
+    }
              
     
     });
@@ -302,15 +305,6 @@ $(function () {
   
 
 
-
-
-
-
-
-
-
-        
-      
      
        
      });
@@ -341,12 +335,16 @@ $(function () {
         $("#filterBtn").on('click',(event)=>{
 
             event.preventDefault();
-             
+            
+            page  = pointer || 1;
+            limit = 50;
+
+
             let store  = $("#select").val();
               
            console.log(store); 
 
-            pourTable(page, 3, store);
+            pourTable(1, limit, store);
 
             setTimeout(()=>{ $('.progress-bar').css("width", "100%"); }, 900); 
             setTimeout(()=>{ $('.progress-bar').css("width", "3%"); }, 1800); 

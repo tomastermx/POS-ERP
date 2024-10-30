@@ -108,11 +108,15 @@ $(function(){
             ///////////////////////////Test  Store ////////////////////////////////////7
 
               if( $("#role").val()== 'seller' && ! $("#store").val()){
-                 
+                    
+                $("#store").addClass("error");
+
                   alert('Si elige el rol de vendedor, deberá elegir una sucusal');
 
+              }  else {
 
-              } 
+                    store  = $("#store").val();
+               }
 
      
 
@@ -149,11 +153,11 @@ $(function(){
               
                if(name && lastname && email && role && password){
      
-                   user.name = name;
+                   user.firstname = name;
                    user.lastname =  lastname;
                    user.email = email;
                    user.role =  role;
-                   user.store = store || null
+                   user.StoreId = store || null
                    user.password = password;
 
                   let modalname = document.getElementById("namemodal");
@@ -167,7 +171,7 @@ $(function(){
                    
                   $("#userModal").modal('show');
 
-               } else {alert('algo fallo')}
+               } else {alert('datos incompletos')}
 
        });
 
@@ -177,7 +181,7 @@ $(function(){
             console.log(user);
          
             $.post('/users/new', user)
-             .done((data)=>{})
+             .done((data)=>{  window.location.replace("/users/index") })
              .fail((jqXHR, textStatus, errorThrown)=>{})
        });
 

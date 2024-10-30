@@ -39,8 +39,9 @@ const boom = require('@hapi/boom');
                       next();
                      }   else {
                        console.log('permission denied');
-                       res.redirect('/chido');
-                     }   
+                       res.redirect('/users/user-unauthorized');
+
+                      }   
 
          }   
           

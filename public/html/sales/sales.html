@@ -8,7 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/sales.css" />
-    <script src='/js/sales/jquery-sales.js'></script>  
+    <script src='/js/sales/jquery-sales.js'></script> 
+    <script src='/js/session-jquery.js' ></script> 
     <script src="https://cdn.jsdelivr.net/npm/moment/min/moment-with-locales.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
@@ -18,17 +19,16 @@
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-   
-    <!--NavBar-->
+                  <!--NavBar-->
      
     <nav class="navbar  navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        
+            
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/users/dashboard">Home</a>
             </li>
@@ -56,11 +56,25 @@
                 <li><a class="dropdown-item" href="/orders/add">Agregar Orden</a></li>
               </ul>
             </li>   
-            
+
+              
+               <!--Users-->
+
+             <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
+                                
+                <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/users/index">Usuarios</a></li>
+                 <li><a class="dropdown-item" href="/users/add">Agregar nuevo usuario</a></li>
+                 </ul>
+               </li>   
+                    
+
+
            
              <!--Products-->
 
-            <li class="nav-item dropdown">
+             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                 
               <ul class="dropdown-menu">
@@ -81,12 +95,54 @@
             </li>   
                                             
 
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
+                
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/users/index">Usuarios</a></li>
+                <li><a class="dropdown-item" href="/users/add">Agregar Usuarios</a></li>
+              </ul>
+            </li>
+             
+            <li>
+
+            </li>
+       
+              
+          </ul>
+
+          <!---->
+          
+
+          <!--Top Right  -->
+          <ul class="navbar-nav mx-5">
+            <li class="nav-item dropdown">
+              <a id ="usernavbar" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+                
+              <ul class="dropdown-menu ">
+                <li><a class="dropdown-item" href="/user/settings">Configuración</a></li>
+                <li><a class="dropdown-item" href="/users/logout">Cerrar Sesión</a></li>
+              </ul>     
+          </ul>
+
+          <ul mx-4>
+
+          </ul>
+           
+          <ul mx-4>
+
+          </ul>
 
         </div>
       </div>
-    </nav> 
+       
+     </nav> 
 
      <!--NavBar-END-->
+    
+  
+ 
 
     <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-bar progress-bar-striped" style="width: 5%"></div>
@@ -131,6 +187,7 @@
   
           <thead class="table-dark">
             <tr>
+              <th scope="col"> Id</th>
               <th scope="col">Fecha </th>
               <th scope="col">Sucursal</th>
               <th scope="col"> Tipo </th>
